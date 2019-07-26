@@ -1,0 +1,11 @@
+* MemBread - Breaking the program with memory allocation
+
+Reason/backstory: I had an MPI program breaking when given larger
+parameters.  Based on some quick calculations, the parameters were
+still very far from what actually will be needed for a real life
+application, but the auxiliary data-structures might have eaten up the
+memory.
+
+Description: I want to see when and how does a program break, if I
+"want too much memory": will it break at allocation, will it break
+when reading the memory will it break when writing the memory.
