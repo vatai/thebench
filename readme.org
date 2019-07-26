@@ -1,0 +1,2 @@
+A collection of tests and utilities, mostly application independent,
+and mostly written in C or C++.
