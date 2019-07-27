@@ -2,8 +2,16 @@
 #include <stdio.h>
 #include <limits.h>
 
-int main(int argc, char argv[]) {
+#ifdef DO_MPI
+#include <mpi.h>
+#endif
+
+int main(int argc, char *argv[]) {
   printf("Hello!\n");
+#ifdef DO_MPI
+  MPI_Init(&argc, &argv);
+  printf("MPI VERSION\n");
+#endif
   double *buf;
   size_t n;
   int nbits = sizeof(n) * CHAR_BIT;
@@ -59,5 +67,9 @@ int main(int argc, char argv[]) {
   for (int i = 0; i < nbits; i++) {
 
   }
+#ifdef DO_MPI
+  printf("MPI VERSION\n");
+  MPI_Finalize();
+#endif
   printf("Bye!\n");
 }
