@@ -19,11 +19,15 @@ void get_cft(int *cfrom, int *cto, int argc, char *argv[]) {
 }
 
 double *my_malloc(size_t s) {
-  MPI_Info info;
   double *buf;
 #ifdef DO_MPI
+  MPI_Info info;
+  int ierr;
+  MPI_Errhandler_set(MPI_COMM_WORLD, MPI_ERRORS_RETURN);
   MPI_Info_create(&info);
-  MPI_Alloc_mem(s, info, &buf);
+  ierr = MPI_Alloc_mem(s, info, &buf);
+  if (ierr != MPI_SUCCESS)
+    buf = NULL;
 #else
   buf = malloc(s);
 #endif
@@ -110,10 +114,6 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  // Allocate and read
-  for (int i = 0; i < nbits; i++) {
-
-  }
 #ifdef DO_MPI
   printf("MPI VERSION\n");
   MPI_Finalize();
